@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun load() {
         showLoading()
-        WhatTheCommitClient.instance().getMessage(WhatTheCommitClient.API_URL).enqueue(object : Callback<WhatTheCommitData> {
+        WhatTheCommitClient.service.getMessage(WhatTheCommitClient.API_URL).enqueue(object : Callback<WhatTheCommitData> {
             override fun onResponse(call: Call<WhatTheCommitData>, response: Response<WhatTheCommitData>) {
                 hideLoading()
                 if (response.isSuccessful) {
