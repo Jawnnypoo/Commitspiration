@@ -3,11 +3,12 @@ Need inspiration for your commit message? Look no further
 
 [![Build Status](https://travis-ci.org/Jawnnypoo/Commitspiration.svg?branch=master)](https://travis-ci.org/Jawnnypoo/Commitspiration)
 
+Written partially in Kotlin cause why not.
 
 License
 --------
 
-    Copyright 2016 Commit 451
+    Copyright 2016 John Carlson
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
