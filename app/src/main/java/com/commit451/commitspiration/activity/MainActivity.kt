@@ -5,17 +5,14 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
 import com.commit451.commitspiration.R
 import com.commit451.commitspiration.api.WhatTheCommitClient
+import com.commit451.commitspiration.extensions.snack
 import com.commit451.commitspiration.model.WhatTheCommitData
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -92,11 +89,6 @@ class MainActivity : AppCompatActivity() {
                 showError()
             }
         })
-    }
-
-    fun View.snack(message: String, length: Int = Snackbar.LENGTH_SHORT) {
-        val snack = Snackbar.make(this, message, length)
-        snack.show()
     }
 
     private fun showError() {
