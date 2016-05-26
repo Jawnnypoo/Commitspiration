@@ -19,10 +19,11 @@ class WhatTheCommitBodyConverter implements Converter<ResponseBody, WhatTheCommi
     @Override
     public WhatTheCommitData convert(ResponseBody value) throws IOException {
         //I feel like this is more efficient than loading from String... just a guess though
-        Document document = Jsoup.parse(value.byteStream(), "utf-8", null);
+        Document document = Jsoup.parse(value.byteStream(), "utf-8", WhatTheCommitClient.API_URL);
+        Element element = document.getElementById("content");
+        String message = element.child(0).text();
+        element = document.getElementsByClass("permalink").get(0).child(0);
 
-        Element messageElement = document.getElementById("content");
-        messageElement = messageElement.child(1);
-        return new WhatTheCommitData(messageElement.toString(), null);
+        return new WhatTheCommitData(message, WhatTheCommitClient.API_URL + element.attr("href"));
     }
 }

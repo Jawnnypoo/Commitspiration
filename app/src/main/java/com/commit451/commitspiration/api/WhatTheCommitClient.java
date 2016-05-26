@@ -15,7 +15,7 @@ import retrofit2.http.Url;
  */
 public class WhatTheCommitClient {
 
-    public static final String API_URL = "http://whatthecommit.com/";
+    public static final String API_URL = "http://whatthecommit.com";
 
     private static WhatTheCommit sWhatTheCommit;
 
