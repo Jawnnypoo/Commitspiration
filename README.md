@@ -3,7 +3,7 @@ Need inspiration for your commit message? Look no further
 
 [![Build Status](https://travis-ci.org/Jawnnypoo/Commitspiration.svg?branch=master)](https://travis-ci.org/Jawnnypoo/Commitspiration)
 
-Written partially in Kotlin cause why not.
+Written in Kotlin cause why not.
 
 License
 --------
