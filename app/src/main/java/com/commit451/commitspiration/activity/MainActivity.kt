@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     var mRoot: ViewGroup? = null
     var mToolbar: Toolbar? = null
     var mMessage: TextView? = null
-    var mProgress: View? = null;
+    var mProgress: View? = null
 
     var mWhatTheCommitData: WhatTheCommitData? = null
 
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                         sendIntent.type = "text/plain"
                         startActivity(sendIntent)
                     } else {
-                        mRoot?.snack("Nothing to share yet!");
+                        mRoot?.snack("Nothing to share yet!")
                     }
                     return@OnMenuItemClickListener true
                 }
@@ -61,9 +61,9 @@ class MainActivity : AppCompatActivity() {
                         val clip = ClipData.newPlainText(mWhatTheCommitData!!.url, mWhatTheCommitData!!.message)
                         clipboard.primaryClip = clip
 
-                        mRoot?.snack("Copied to clipboard");
+                        mRoot?.snack("Copied to clipboard")
                     } else {
-                        mRoot?.snack("Nothing to copy yet");
+                        mRoot?.snack("Nothing to copy yet")
                     }
                     return@OnMenuItemClickListener true
                 }
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<WhatTheCommitData>, t: Throwable) {
-                Timber.e(t, null)
+                Timber.e(t)
                 hideLoading()
                 showError()
             }
@@ -98,16 +98,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        mMessage?.animate()?.alpha(0.0f);
-        mProgress?.animate()?.alpha(1.0f);
+        mMessage?.animate()?.alpha(0.0f)
+        mProgress?.animate()?.alpha(1.0f)
     }
 
     private fun hideLoading() {
-        mMessage?.animate()?.alpha(1.0f);
-        mProgress?.animate()?.alpha(0.0f);
+        mMessage?.animate()?.alpha(1.0f)
+        mProgress?.animate()?.alpha(0.0f)
     }
 
     private fun showError() {
-        mRoot?.snack("Unable to get that commit message for ya, sorry");
+        mRoot?.snack("Unable to get that commit message for ya, sorry")
     }
 }
