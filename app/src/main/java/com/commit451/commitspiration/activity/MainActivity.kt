@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         mToolbar = findViewById(R.id.toolbar) as Toolbar?
         mRoot = findViewById(R.id.root) as ViewGroup?
         mMessage = findViewById(R.id.message) as TextView?
-        mProgress = findViewById(R.id.progress);
+        mProgress = findViewById(R.id.progress)
 
         mToolbar?.setTitle(R.string.app_name)
         mToolbar?.inflateMenu(R.menu.main)
