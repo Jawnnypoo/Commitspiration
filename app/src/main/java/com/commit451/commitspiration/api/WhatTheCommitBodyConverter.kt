@@ -15,10 +15,10 @@ internal class WhatTheCommitBodyConverter : Converter<ResponseBody, WhatTheCommi
     override fun convert(value: ResponseBody): WhatTheCommitData {
         //I feel like this is more efficient than loading from String... just a guess though
         val document = Jsoup.parse(value.byteStream(), "utf-8", WhatTheCommitClient.API_URL)
+        //TODO do we need to close the response here?
         var element = document.getElementById("content")
         val message = element.child(0).text()
         element = document.getElementsByClass("permalink")[0].child(0)
-
         return WhatTheCommitData(message, WhatTheCommitClient.API_URL + element.attr("href"))
     }
 }

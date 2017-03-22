@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.commit451.commitspiration.R
 import com.commit451.commitspiration.api.WhatTheCommitClient
 import com.commit451.commitspiration.extensions.snack
@@ -21,56 +23,52 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
-    var mRoot: ViewGroup? = null
-    var mToolbar: Toolbar? = null
-    var mMessage: TextView? = null
-    var mProgress: View? = null
+    @BindView(R.id.root) lateinit var root: ViewGroup
+    @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
+    @BindView(R.id.text_message) lateinit var textMessage: TextView
+    @BindView(R.id.progress) lateinit var progress: View
 
-    var mWhatTheCommitData: WhatTheCommitData? = null
+    var whatTheCommitData: WhatTheCommitData? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        ButterKnife.bind(this)
 
-        mToolbar = findViewById(R.id.toolbar) as Toolbar?
-        mRoot = findViewById(R.id.root) as ViewGroup?
-        mMessage = findViewById(R.id.message) as TextView?
-        mProgress = findViewById(R.id.progress)
-
-        mToolbar?.setTitle(R.string.app_name)
-        mToolbar?.inflateMenu(R.menu.main)
-        mToolbar?.setOnMenuItemClickListener(Toolbar.OnMenuItemClickListener { item ->
+        toolbar.setTitle(R.string.app_name)
+        toolbar.inflateMenu(R.menu.main)
+        toolbar.setOnMenuItemClickListener(Toolbar.OnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.action_share -> {
-                    if (mWhatTheCommitData != null) {
+                    if (whatTheCommitData != null) {
                         val sendIntent = Intent()
                         sendIntent.action = Intent.ACTION_SEND
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, mWhatTheCommitData!!.url)
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, whatTheCommitData!!.url)
                         sendIntent.type = "text/plain"
                         startActivity(sendIntent)
                     } else {
-                        mRoot?.snack("Nothing to share yet!")
+                        root.snack("Nothing to share yet!")
                     }
                     return@OnMenuItemClickListener true
                 }
                 R.id.action_copy -> {
-                    if (mWhatTheCommitData != null) {
+                    if (whatTheCommitData != null) {
                         // Gets a handle to the clipboard service.
                         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                         // Creates a new text clip to put on the clipboard
-                        val clip = ClipData.newPlainText(mWhatTheCommitData!!.url, mWhatTheCommitData!!.message)
+                        val clip = ClipData.newPlainText(whatTheCommitData!!.url, whatTheCommitData!!.message)
                         clipboard.primaryClip = clip
 
-                        mRoot?.snack("Copied to clipboard")
+                        root.snack("Copied to clipboard")
                     } else {
-                        mRoot?.snack("Nothing to copy yet")
+                        root.snack("Nothing to copy yet")
                     }
                     return@OnMenuItemClickListener true
                 }
             }
             false
         })
-        mMessage?.setOnClickListener {
+        root.setOnClickListener {
             load()
         }
         load()
@@ -82,8 +80,8 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<WhatTheCommitData>, response: Response<WhatTheCommitData>) {
                 hideLoading()
                 if (response.isSuccessful) {
-                    mWhatTheCommitData = response.body()
-                    mMessage?.text = mWhatTheCommitData!!.message
+                    whatTheCommitData = response.body()
+                    textMessage.text = whatTheCommitData!!.message
                 } else {
                     showError()
                 }
@@ -98,16 +96,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        mMessage?.animate()?.alpha(0.0f)
-        mProgress?.animate()?.alpha(1.0f)
+        textMessage.animate()?.alpha(0.0f)
+        progress.animate()?.alpha(1.0f)
     }
 
     private fun hideLoading() {
-        mMessage?.animate()?.alpha(1.0f)
-        mProgress?.animate()?.alpha(0.0f)
+        textMessage.animate()?.alpha(1.0f)
+        progress.animate()?.alpha(0.0f)
     }
 
     private fun showError() {
-        mRoot?.snack("Unable to get that commit message for ya, sorry")
+        root.snack("Unable to get that commit message for ya, sorry")
     }
 }

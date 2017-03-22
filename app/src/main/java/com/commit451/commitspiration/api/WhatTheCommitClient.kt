@@ -11,9 +11,9 @@ object WhatTheCommitClient {
     val API_URL = "http://whatthecommit.com"
 
     val retrofit: Retrofit = Retrofit.Builder()
-        .addConverterFactory(WhatTheConverterFactory.create())
-        .baseUrl(API_URL)
-        .build()
+            .baseUrl(API_URL)
+            .addConverterFactory(WhatTheConverterFactory.create())
+            .build()
 
-    val service : WhatTheCommit = retrofit.create(WhatTheCommit::class.java);
+    val service: WhatTheCommit = retrofit.create(WhatTheCommit::class.java);
 }
